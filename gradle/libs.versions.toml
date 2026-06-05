@@ -1,0 +1,35 @@
+[versions]
+spring-boot = "3.3.5"
+spring-dependency-management = "1.1.6"
+java = "17"
+testcontainers = "1.20.4"
+minio = "8.5.12"
+springdoc = "2.6.0"
+logstash-logback = "8.0"
+opentelemetry = "1.43.0"
+
+[libraries]
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-boot-starter-data-redis = { module = "org.springframework.boot:spring-boot-starter-data-redis" }
+spring-boot-starter-data-elasticsearch = { module = "org.springframework.boot:spring-boot-starter-data-elasticsearch" }
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+spring-kafka = { module = "org.springframework.kafka:spring-kafka" }
+postgresql = { module = "org.postgresql:postgresql" }
+minio = { module = "io.minio:minio", version.ref = "minio" }
+springdoc-openapi = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
+micrometer-prometheus = { module = "io.micrometer:micrometer-registry-prometheus" }
+logstash-logback = { module = "net.logstash.logback:logstash-logback-encoder", version.ref = "logstash-logback" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-kafka-test = { module = "org.springframework.kafka:spring-kafka-test" }
+testcontainers-bom = { module = "org.testcontainers:testcontainers-bom", version.ref = "testcontainers" }
+testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter" }
+testcontainers-postgresql = { module = "org.testcontainers:postgresql" }
+testcontainers-elasticsearch = { module = "org.testcontainers:elasticsearch" }
+testcontainers-kafka = { module = "org.testcontainers:kafka" }
+testcontainers-minio = { module = "org.testcontainers:minio" }
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }

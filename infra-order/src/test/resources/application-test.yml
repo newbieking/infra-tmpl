@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test
+    username: test
+    password: test
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+seata:
+  enabled: false

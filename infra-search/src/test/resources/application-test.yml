@@ -1,0 +1,11 @@
+spring:
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+  elasticsearch:
+    uris: http://localhost:9200
+  cloud:
+    nacos:
+      discovery:
+        enabled: false

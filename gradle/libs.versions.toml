@@ -1,6 +1,9 @@
 [versions]
 spring-boot = "3.3.5"
 spring-dependency-management = "1.1.6"
+spring-cloud = "2023.0.3"
+spring-cloud-alibaba = "2023.0.3.2"
+seata = "2.0.0"
 java = "17"
 testcontainers = "1.20.4"
 minio = "8.5.12"
@@ -16,6 +19,13 @@ spring-boot-starter-data-elasticsearch = { module = "org.springframework.boot:sp
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
 spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
 spring-kafka = { module = "org.springframework.kafka:spring-kafka" }
+spring-cloud-bom = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "spring-cloud" }
+spring-cloud-alibaba-bom = { module = "com.alibaba.cloud:spring-cloud-alibaba-dependencies", version.ref = "spring-cloud-alibaba" }
+nacos-discovery = { module = "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery" }
+nacos-config = { module = "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config" }
+sentinel = { module = "com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel" }
+sentinel-datasource-nacos = { module = "com.alibaba.csp:sentinel-datasource-nacos" }
+seata = { module = "io.seata:seata-spring-boot-starter", version.ref = "seata" }
 postgresql = { module = "org.postgresql:postgresql" }
 minio = { module = "io.minio:minio", version.ref = "minio" }
 springdoc-openapi = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }

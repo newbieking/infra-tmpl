@@ -31,6 +31,14 @@ dependencies {
     // Object Storage
     implementation(libs.minio)
 
+    // Microservice Infrastructure (Nacos + Sentinel + Seata)
+    implementation(platform(libs.spring.cloud.bom))
+    implementation(platform(libs.spring.cloud.alibaba.bom))
+    implementation(libs.nacos.discovery)
+    implementation(libs.nacos.config)
+    implementation(libs.sentinel)
+    implementation(libs.seata)
+
     // Observability
     implementation(libs.spring.boot.starter.actuator)
     implementation(libs.micrometer.prometheus)

@@ -42,6 +42,52 @@ spring:
         spring.json.trusted.packages: "com.infra.template.dto"
       auto-offset-reset: earliest
 
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_ADDR:localhost:8848}
+        username: nacos
+        password: nacos
+        namespace: public
+      config:
+        server-addr: ${NACOS_ADDR:localhost:8848}
+        username: nacos
+        password: nacos
+        file-extension: yml
+        namespace: public
+        group: DEFAULT_GROUP
+
+# Sentinel
+sentinel:
+  transport:
+    dashboard: ${SENTINEL_DASHBOARD:localhost:8858}
+    port: 8719
+  eager: true
+
+# Seata
+seata:
+  enabled: ${SEATA_ENABLED:true}
+  application-id: ${spring.application.name}
+  tx-service-group: ${spring.application.name}-tx-group
+  service:
+    vgroup-mapping:
+      infra-tmpl-tx-group: default
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: ${NACOS_ADDR:localhost:8848}
+      username: nacos
+      password: nacos
+      group: SEATA_GROUP
+  config:
+    type: nacos
+    nacos:
+      server-addr: ${NACOS_ADDR:localhost:8848}
+      username: nacos
+      password: nacos
+      group: SEATA_GROUP
+
 server:
   port: 8080
 

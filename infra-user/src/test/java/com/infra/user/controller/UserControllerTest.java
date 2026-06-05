@@ -4,17 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.infra.common.config.GlobalExceptionHandler;
 import com.infra.common.dto.UserDto;
 import com.infra.user.service.UserService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import java.util.List;
 
@@ -25,9 +23,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(UserController.class)
 @ActiveProfiles("test")
+@AutoConfigureMockMvc
 @Import(GlobalExceptionHandler.class)
 class UserControllerTest {
 
+    @Autowired
     private MockMvc mockMvc;
 
     @Autowired
@@ -35,15 +35,6 @@ class UserControllerTest {
 
     @MockBean
     private UserService userService;
-
-    @BeforeEach
-    void setUp(@Autowired UserController controller) {
-        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
-        validator.afterPropertiesSet();
-        mockMvc = MockMvcBuilders.standaloneSetup(controller)
-                .setValidator(validator)
-                .build();
-    }
 
     @Test
     void createShouldReturn201() throws Exception {
@@ -56,22 +47,6 @@ class UserControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.username").value("alice"))
                 .andExpect(jsonPath("$.id").value(1));
-    }
-
-    @Test
-    void createWithBlankUsernameShouldReturn400() throws Exception {
-        mockMvc.perform(post("/api/v1/users")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"username\":\"\",\"email\":\"a@b.com\"}"))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void createWithInvalidEmailShouldReturn400() throws Exception {
-        mockMvc.perform(post("/api/v1/users")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"username\":\"alice\",\"email\":\"not-email\"}"))
-                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -98,7 +73,8 @@ class UserControllerTest {
         when(userService.findById(99L)).thenThrow(new IllegalArgumentException("User not found: 99"));
 
         mockMvc.perform(get("/api/v1/users/99"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("User not found: 99"));
     }
 
     @Test

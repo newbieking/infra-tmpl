@@ -21,4 +21,5 @@ dependencies {
     api(platform(libs.spring.cloud.alibaba.bom))
     api(libs.nacos.discovery)
     api(libs.loadbalancer)
+    api(libs.spring.boot.starter.data.redis)
 }

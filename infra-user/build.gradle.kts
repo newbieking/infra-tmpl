@@ -10,6 +10,7 @@ dependencies {
     implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
     runtimeOnly(libs.postgresql)
     testImplementation(libs.testcontainers.postgresql)
+    testImplementation("org.testcontainers:testcontainers")
     testImplementation(libs.testcontainers.junit.jupiter)
     testImplementation(platform(libs.testcontainers.bom))
 }

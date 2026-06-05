@@ -11,9 +11,9 @@ import java.util.concurrent.TimeUnit;
 public class EventService {
 
     private final KafkaProducerService kafkaProducer;
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<Object, Object> redisTemplate;
 
-    public EventService(KafkaProducerService kafkaProducer, RedisTemplate<String, Object> redisTemplate) {
+    public EventService(KafkaProducerService kafkaProducer, RedisTemplate<Object, Object> redisTemplate) {
         this.kafkaProducer = kafkaProducer;
         this.redisTemplate = redisTemplate;
     }

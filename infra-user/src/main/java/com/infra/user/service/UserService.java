@@ -22,13 +22,13 @@ public class UserService {
     private static final String CACHE_PREFIX = "user:";
 
     private final UserRepository userRepository;
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<Object, Object> redisTemplate;
     private final Cache<String, Object> localCache = Caffeine.newBuilder()
             .maximumSize(1000)
             .expireAfterWrite(5, TimeUnit.MINUTES)
             .build();
 
-    public UserService(UserRepository userRepository, RedisTemplate<String, Object> redisTemplate) {
+    public UserService(UserRepository userRepository, RedisTemplate<Object, Object> redisTemplate) {
         this.userRepository = userRepository;
         this.redisTemplate = redisTemplate;
     }

@@ -27,10 +27,10 @@ class UserServiceTest {
     private UserRepository userRepository;
 
     @Mock
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<Object, Object> redisTemplate;
 
     @Mock
-    private ValueOperations<String, Object> valueOperations;
+    private ValueOperations<Object, Object> valueOperations;
 
     @InjectMocks
     private UserService userService;

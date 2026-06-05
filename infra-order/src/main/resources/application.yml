@@ -38,5 +38,14 @@ seata:
       password: nacos
       group: SEATA_GROUP
 
+spring.cloud.openfeign:
+  client:
+    config:
+      default:
+        connect-timeout: 3000
+        read-timeout: 5000
+  circuitbreaker:
+    enabled: true
+
 server:
   port: 8082

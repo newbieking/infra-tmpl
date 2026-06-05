@@ -42,4 +42,15 @@ class OrderControllerTest {
                 .andExpect(jsonPath("$.orderId").value("abc123"))
                 .andExpect(jsonPath("$.status").value("CREATED"));
     }
+
+    @Test
+    void createOrderWhenServiceFailsShouldReturn500() throws Exception {
+        when(orderService.createOrder("user1", "prod1", 1))
+                .thenThrow(new RuntimeException("库存服务不可用"));
+
+        mockMvc.perform(post("/api/v1/orders")
+                        .param("userId", "user1")
+                        .param("productId", "prod1"))
+                .andExpect(status().isInternalServerError());
+    }
 }

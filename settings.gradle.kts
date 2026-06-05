@@ -2,6 +2,7 @@ pluginManagement {
     repositories {
         gradlePluginPortal()
         mavenCentral()
+        maven { url = uri("https://maven.aliyun.com/repository/spring") }
     }
 }
 
@@ -15,3 +16,11 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "infra-tmpl"
+
+include("infra-common")
+include("infra-gateway")
+include("infra-user")
+include("infra-order")
+include("infra-search")
+include("infra-storage")
+include("infra-event")

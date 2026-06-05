@@ -1,5 +1,0 @@
-logging:
-  level:
-    com.infra.template: DEBUG
-    org.springframework.kafka: INFO
-    org.elasticsearch: WARN

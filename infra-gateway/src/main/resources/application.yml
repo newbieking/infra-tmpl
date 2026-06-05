@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: infra-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_ADDR:localhost:8848}
+        username: nacos
+        password: nacos
+    gateway:
+      routes:
+        - id: infra-user
+          uri: lb://infra-user
+          predicates:
+            - Path=/api/v1/users/**
+        - id: infra-order
+          uri: lb://infra-order
+          predicates:
+            - Path=/api/v1/orders/**,/api/v1/tx/**
+        - id: infra-search
+          uri: lb://infra-search
+          predicates:
+            - Path=/api/v1/search/**
+        - id: infra-storage
+          uri: lb://infra-storage
+          predicates:
+            - Path=/api/v1/storage/**
+        - id: infra-event
+          uri: lb://infra-event
+          predicates:
+            - Path=/api/v1/events/**,/api/v1/cache/**
+
+server:
+  port: 8080
+
+sentinel:
+  transport:
+    dashboard: ${SENTINEL_DASHBOARD:localhost:8858}
+    port: 8719
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      show-details: always

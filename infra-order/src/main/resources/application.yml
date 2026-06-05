@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: infra-order
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:infradb}
+    username: ${DB_USER:infra}
+    password: ${DB_PASSWORD:infra123}
+  jpa:
+    hibernate:
+      ddl-auto: update
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_ADDR:localhost:8848}
+        username: nacos
+        password: nacos
+
+seata:
+  enabled: ${SEATA_ENABLED:true}
+  application-id: ${spring.application.name}
+  tx-service-group: ${spring.application.name}-tx-group
+  service:
+    vgroup-mapping:
+      infra-order-tx-group: default
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: ${NACOS_ADDR:localhost:8848}
+      username: nacos
+      password: nacos
+      group: SEATA_GROUP
+  config:
+    type: nacos
+    nacos:
+      server-addr: ${NACOS_ADDR:localhost:8848}
+      username: nacos
+      password: nacos
+      group: SEATA_GROUP
+
+server:
+  port: 8082

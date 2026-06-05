@@ -185,6 +185,65 @@ services:
       retries: 5
       start_period: 20s
 
+  # ==================== Microservices ====================
+
+  gateway:
+    build:
+      context: ..
+      dockerfile: infra-gateway/Dockerfile
+    container_name: infra-gateway
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      NACOS_ADDR: nacos:8848
+      SENTINEL_DASHBOARD: sentinel:8858
+    depends_on:
+      nacos:
+        condition: service_healthy
+      sentinel:
+        condition: service_healthy
+
+  user-service:
+    build:
+      context: ..
+      dockerfile: infra-user/Dockerfile
+    container_name: infra-user
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      DB_HOST: postgres
+      REDIS_HOST: redis
+      NACOS_ADDR: nacos:8848
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      nacos:
+        condition: service_healthy
+
+  order-service:
+    build:
+      context: ..
+      dockerfile: infra-order/Dockerfile
+    container_name: infra-order
+    restart: unless-stopped
+    ports:
+      - "8082:8082"
+    environment:
+      DB_HOST: postgres
+      NACOS_ADDR: nacos:8848
+      SEATA_ENABLED: "true"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      nacos:
+        condition: service_healthy
+      seata:
+        condition: service_healthy
+
   jaeger:
     image: jaegertracing/all-in-one:1.62.0
     container_name: infra-jaeger

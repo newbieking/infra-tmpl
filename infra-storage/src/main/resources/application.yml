@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: infra-storage
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_ADDR:localhost:8848}
+        username: nacos
+        password: nacos
+
+server:
+  port: 8084
+
+infra:
+  minio:
+    endpoint: http://${MINIO_HOST:localhost}:${MINIO_PORT:9000}
+    access-key: ${MINIO_ACCESS_KEY:minioadmin}
+    secret-key: ${MINIO_SECRET_KEY:minioadmin123}
+    bucket: ${MINIO_BUCKET:infra-storage}

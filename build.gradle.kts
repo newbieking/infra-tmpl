@@ -10,6 +10,7 @@ val javaVersion = libs.versions.java.get().toInt()
 
 subprojects {
     apply(plugin = "java")
+    apply(plugin = "jacoco")
 
     configure<JavaPluginExtension> {
         toolchain {
@@ -23,5 +24,15 @@ subprojects {
 
     tasks.withType<Test> {
         useJUnitPlatform()
+        extensions.configure(JacocoTaskExtension::class) {
+            isEnabled = true
+        }
+    }
+
+    tasks.withType<JacocoReport> {
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+        }
     }
 }

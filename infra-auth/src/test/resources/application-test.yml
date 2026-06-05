@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+infra:
+  jwt:
+    secret: TestSecretKeyForUnitTestOnly0123456789
+    expiration: 86400000

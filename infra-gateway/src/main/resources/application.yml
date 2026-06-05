@@ -9,6 +9,10 @@ spring:
         password: nacos
     gateway:
       routes:
+        - id: infra-auth
+          uri: lb://infra-auth
+          predicates:
+            - Path=/api/v1/auth/**
         - id: infra-user
           uri: lb://infra-user
           predicates:
@@ -16,7 +20,7 @@ spring:
         - id: infra-order
           uri: lb://infra-order
           predicates:
-            - Path=/api/v1/orders/**,/api/v1/tx/**
+            - Path=/api/v1/orders/**
         - id: infra-search
           uri: lb://infra-search
           predicates:
@@ -29,6 +33,16 @@ spring:
           uri: lb://infra-event
           predicates:
             - Path=/api/v1/events/**,/api/v1/cache/**
+      default-filters:
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 50
+            redis-rate-limiter.burstCapacity: 100
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
 
 server:
   port: 8080
@@ -37,6 +51,7 @@ sentinel:
   transport:
     dashboard: ${SENTINEL_DASHBOARD:localhost:8858}
     port: 8719
+  eager: true
 
 management:
   endpoints:

@@ -19,6 +19,7 @@ rootProject.name = "infra-tmpl"
 
 include("infra-common")
 include("infra-gateway")
+include("infra-auth")
 include("infra-user")
 include("infra-order")
 include("infra-search")

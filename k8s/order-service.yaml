@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: infra-order
+  namespace: infra-tmpl
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: infra-order
+  template:
+    metadata:
+      labels:
+        app: infra-order
+    spec:
+      containers:
+        - name: infra-order
+          image: infra-tmpl/infra-order:latest
+          ports:
+            - containerPort: 8082
+          envFrom:
+            - configMapRef:
+                name: infra-config
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: infra-order
+  namespace: infra-tmpl
+spec:
+  type: ClusterIP
+  selector:
+    app: infra-order
+  ports:
+    - port: 8082
+      targetPort: 8082

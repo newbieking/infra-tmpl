@@ -41,3 +41,6 @@ Thumbs.db
 
 ### Qwen Code ###
 .qwen/
+
+### K8s Secrets (use sealed-secrets or vault in production) ###
+k8s/secrets.yaml

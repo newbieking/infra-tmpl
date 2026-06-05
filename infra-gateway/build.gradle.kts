@@ -9,4 +9,5 @@ dependencies {
     implementation(libs.sentinel)
     implementation(libs.sentinel.gateway)
     implementation(libs.nacos.config)
+    implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
 }

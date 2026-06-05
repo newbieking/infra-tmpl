@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infra-tmpl
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: infra-config
+  namespace: infra-tmpl
+data:
+  NACOS_ADDR: "nacos:8848"
+  DB_HOST: "postgres"
+  DB_PORT: "5432"
+  DB_NAME: "infradb"
+  REDIS_HOST: "redis"
+  ES_HOST: "elasticsearch"
+  KAFKA_SERVER: "kafka:9092"
+  MINIO_ENDPOINT: "http://minio:9000"
+  SENTINEL_DASHBOARD: "sentinel:8858"
+  SEATA_ENABLED: "true"
